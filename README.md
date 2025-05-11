@@ -96,7 +96,7 @@ RAG-PDF-QA is a Streamlit-based application that allows users to ask questions a
 - `GROQ_API_KEY`: Your API key for Groq LLM access (required).
 
 ## License
-Specify your license here.
+[MIT License](https://github.com/yash-meshram/rag-pdf-qa?tab=MIT-1-ov-file)
 
 ## Acknowledgements
 - Built with [LangChain](https://python.langchain.com/) and [Streamlit](https://streamlit.io/).
