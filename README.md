@@ -1,6 +1,6 @@
 # RAG PDF QA
 
-Retrieval-Augmented Generation (RAG) is a Streamlit-based application that allows users to ask questions about the content of PDF documents. It leverages vector stores and large language models to provide accurate, reference-backed answers based on the provided documents.
+RAG-PDF-QA is a Streamlit-based application that allows users to ask questions about the content of PDF documents. It leverages vector stores and large language models to provide accurate, reference-backed answers based on the provided documents.
 
 ## Features
 - **PDF Document Ingestion:** Load and process PDF files from a specified directory.
