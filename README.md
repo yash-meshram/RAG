@@ -26,6 +26,14 @@ Retrieval-Augmented Generation (RAG) is a Streamlit-based application that allow
 ├── README.md                  # Project documentation
 ```
 
+## Diagram
+
+<picture>
+  <source srcset="data/Diagram/diagram-dark.png" media="(prefers-color-scheme: dark)">
+  <source srcset="data/Diagram/diagram-light.png" media="(prefers-color-scheme: light)">
+  <img src="app/resources/diagram-light.png" alt="Project Workflow">
+</picture>
+
 ## Setup Instructions
 1. **Clone the repository:**
    ```bash
