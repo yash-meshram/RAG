@@ -1,0 +1,2 @@
+- Vector store will be created in this directory.
+- If you have Vector store place in this directory.

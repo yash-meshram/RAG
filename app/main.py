@@ -19,7 +19,7 @@ def get_response(question):
     # Loading all the pdfs in data directory
     document_pages = asyncio.run(
         PDFLoader.load_all_pdfs_from_directory(
-            data_directory = "app/data/Documents"
+            data_directory = "data/Documents"
         )
     )
     

@@ -11,12 +11,12 @@ class VectorStore:
         vector_store = InMemoryVectorStore.from_documents(
             pages, embedding
         )
-        with open("app/data/VectorStore/vector_store.pkl", "wb") as f:
+        with open("data/VectorStore/vector_store.pkl", "wb") as f:
             pickle.dump(vector_store, f)
         
     # Searching in the created vectore store
     def search(question: str) -> list:
-        with open("app/data/VectorStore/vector_store.pkl", "rb") as f:
+        with open("data/VectorStore/vector_store.pkl", "rb") as f:
             vector_store = pickle.load(f)
         pages = vector_store.similarity_search(
             query = question,
