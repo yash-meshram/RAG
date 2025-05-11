@@ -7,7 +7,7 @@ Retrieval-Augmented Generation (RAG) is a Streamlit-based application that allow
 - **Vector Store Creation:** Embed and store document pages for efficient semantic search.
 - **Question Answering:** Ask questions about the ingested documents and receive answers with references to the source document and page.
 - **Streamlit UI:** Simple web interface for user interaction.
-- **Multi-document Support:** (via `multiVectorStore.py`) Manage and search across multiple document vector stores.
+
 
 ## Directory Structure
 ```
@@ -15,12 +15,14 @@ Retrieval-Augmented Generation (RAG) is a Streamlit-based application that allow
 │   ├── main.py                # Streamlit app entry point
 │   ├── pdfLoader.py           # PDF loading utilities
 │   ├── vectorStore.py         # Single vector store management
-│   ├── multiVectorStore.py    # Multi-document vector store management
+│   ├── multiVectorStore.py    # Multi-document vector store management ("ongoing")
 │   ├── chain.py               # LLM chain and prompt logic
-│   ├── data/
-│   │   ├── Documents/         # Place your PDF files here
-│   │   └── VectorStore/       # Stores vector store pickle files
-│   └── VectorStore/           # (empty or for future use)
+├── data/
+│   ├── Documents/             # Place your PDF files here
+│   │   └── document.txt       # Directory guide ("Put the pdf file in this directory.")
+│   └── VectorStore/           # Stores vector store pickle files
+│       ├── vector_store.pkl   # Main vector store file
+│       └── vector_store.txt   # Directory guide ("Vector store will be created in this directory.")
 ├── README.md                  # Project documentation
 ```
 
@@ -40,7 +42,7 @@ Retrieval-Augmented Generation (RAG) is a Streamlit-based application that allow
    langchain-groq
    python-dotenv
    sentence-transformers
-   ````
+   ```
    Then install:
    ```bash
    pip install -r requirements.txt
@@ -51,7 +53,7 @@ Retrieval-Augmented Generation (RAG) is a Streamlit-based application that allow
      GROQ_API_KEY=your_groq_api_key_here
      ```
 4. **Add PDF documents:**
-   - Place your PDF files in `app/data/Documents/`.
+   - Place your PDF files in `data/Documents/`.
 
 ## Usage
 1. **Run the Streamlit app:**
@@ -64,7 +66,16 @@ Retrieval-Augmented Generation (RAG) is a Streamlit-based application that allow
 
 **Note:**
 - On first run or when adding new documents, the app will process all PDFs and create/update the vector store. This may take some time depending on the number and size of documents.
-- For multi-document management, refer to `multiVectorStore.py` for additional API and usage patterns.
+- The `data/Documents/document.txt` and `data/VectorStore/vector_store.txt` files are directory guides and can be safely ignored or removed if not needed.
+
+## Enhancement
+
+**In Progress**
+- Implementation of robust support for managing and querying multiple PDF documents simultaneously.
+
+**Planned Enhancements**
+- Enable users to upload their own PDF files directly through the web interface.
+- Extend document processing capabilities to support a wider range of file formats beyond PDFs.
 
 ## Dependencies
 - [Streamlit](https://streamlit.io/)
