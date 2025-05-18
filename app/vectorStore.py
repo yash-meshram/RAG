@@ -1,8 +1,20 @@
 from langchain_core.vectorstores import InMemoryVectorStore
 from langchain_huggingface.embeddings import HuggingFaceEmbeddings
 import pickle
+from langchain_text_splitters import RecursiveCharacterTextSplitter
 
 class VectorStore:
+    # splitting
+    def split_text(pages: list):
+        text_splitter = RecursiveCharacterTextSplitter(
+            chunk_size = 1000,
+            chunk_overlap = 250,
+            add_start_index = True
+        )
+        all_splits = text_splitter.split_documents(pages)
+        return all_splits
+            
+    
     # Creating the vector store
     def create_vector_store(pages: list):
         embedding = HuggingFaceEmbeddings(

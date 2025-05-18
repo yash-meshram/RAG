@@ -4,10 +4,17 @@ RAG-PDF-QA is a Streamlit-based application that allows users to ask questions a
 
 ## Features
 - **PDF Document Ingestion:** Load and process PDF files from a specified directory.
+- **Document Splitting:** Automatically splits PDF pages into overlapping text chunks for improved semantic search and retrieval accuracy.
 - **Vector Store Creation:** Embed and store document pages for efficient semantic search.
 - **Question Answering:** Ask questions about the ingested documents and receive answers with references to the source document and page.
 - **Streamlit UI:** Simple web interface for user interaction.
+- **(In Progress) Multi-Document Support:** Backend code for managing and querying multiple PDF documents is present, but not yet integrated into the main UI.
 
+## How it Works
+1. **PDF Loading:** All PDF files in `data/Documents/` are loaded and each page is extracted.
+2. **Splitting:** Each page is split into overlapping text chunks (default: 1000 characters per chunk, 250 character overlap) using a recursive character splitter. This ensures that answers can be found even if the relevant information spans across page boundaries or is located in the middle of a long page.
+3. **Embedding & Vector Store:** The text chunks are embedded and stored in a vector store for fast semantic search.
+4. **Question Answering:** When a user asks a question, the app searches the vector store for the most relevant chunks and uses an LLM to generate an answer, citing the source document and page.
 
 ## Directory Structure
 ```
@@ -15,14 +22,17 @@ RAG-PDF-QA is a Streamlit-based application that allows users to ask questions a
 │   ├── main.py                # Streamlit app entry point
 │   ├── pdfLoader.py           # PDF loading utilities
 │   ├── vectorStore.py         # Single vector store management
-│   ├── multiVectorStore.py    # Multi-document vector store management ("ongoing")
+│   ├── multiVectorStore.py    # Multi-document vector store backend (not yet in UI)
 │   ├── chain.py               # LLM chain and prompt logic
 ├── data/
 │   ├── Documents/             # Place your PDF files here
 │   │   └── document.txt       # Directory guide ("Put the pdf file in this directory.")
-│   └── VectorStore/           # Stores vector store pickle files
-│       ├── vector_store.pkl   # Main vector store file
-│       └── vector_store.txt   # Directory guide ("Vector store will be created in this directory.")
+│   ├── VectorStore/           # Stores vector store pickle files
+│   │   ├── vector_store.pkl   # Main vector store file
+│   │   └── vector_store.txt   # Directory guide ("Vector store will be created in this directory.")
+│   └── Diagram/               # Project workflow diagrams
+│       ├── diagram-dark.png
+│       └── diagram-light.png
 ├── README.md                  # Project documentation
 ```
 
@@ -31,7 +41,7 @@ RAG-PDF-QA is a Streamlit-based application that allows users to ask questions a
 <picture>
   <source srcset="data/Diagram/diagram-dark.png" media="(prefers-color-scheme: dark)">
   <source srcset="data/Diagram/diagram-light.png" media="(prefers-color-scheme: light)">
-  <img src="app/resources/diagram-light.png" alt="Project Workflow">
+  <img src="data/Diagram/diagram-light.png" alt="Project Workflow">
 </picture>
 
 ## Setup Instructions
@@ -45,6 +55,7 @@ RAG-PDF-QA is a Streamlit-based application that allows users to ask questions a
    ```
    streamlit
    langchain
+   langchain-core
    langchain-community
    langchain-huggingface
    langchain-groq
@@ -76,10 +87,15 @@ RAG-PDF-QA is a Streamlit-based application that allows users to ask questions a
 - On first run or when adding new documents, the app will process all PDFs and create/update the vector store. This may take some time depending on the number and size of documents.
 - The `data/Documents/document.txt` and `data/VectorStore/vector_store.txt` files are directory guides and can be safely ignored or removed if not needed.
 
+## Multi-Document Support (Backend Only)
+- The file `app/multiVectorStore.py` contains backend logic for managing and querying multiple PDF documents, each with its own vector store.
+- This feature is **not yet integrated into the main Streamlit UI**. If you wish to experiment, you can use the class directly in your own scripts/notebooks.
+- Vector stores for multiple documents are intended to be stored in a dedicated directory (see code for details), but this is not yet active in the main workflow.
+
 ## Enhancement
 
 **In Progress**
-- Implementation of robust support for managing and querying multiple PDF documents simultaneously.
+- Integration of robust support for managing and querying multiple PDF documents simultaneously.
 
 **Planned Enhancements**
 - Enable users to upload their own PDF files directly through the web interface.
@@ -88,6 +104,10 @@ RAG-PDF-QA is a Streamlit-based application that allows users to ask questions a
 ## Dependencies
 - [Streamlit](https://streamlit.io/)
 - [LangChain](https://python.langchain.com/)
+- [langchain-core](https://pypi.org/project/langchain-core/)
+- [langchain-community](https://pypi.org/project/langchain-community/)
+- [langchain-huggingface](https://pypi.org/project/langchain-huggingface/)
+- [langchain-groq](https://pypi.org/project/langchain-groq/)
 - [sentence-transformers](https://www.sbert.net/)
 - [python-dotenv](https://pypi.org/project/python-dotenv/)
 - [Groq LLM API](https://console.groq.com/)
